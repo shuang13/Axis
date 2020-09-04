@@ -4,6 +4,11 @@
     <div class="cross-x"></div>
     <div class="cross-y"></div>
     <div class="axis"></div>
+    <ul class ="menu">
+        <li>
+          <span>层位解释</span>
+        </li>
+    </ul>
   </div>
   
 </template>
@@ -129,12 +134,46 @@ export default {
       d3.select(".inner").on('mousemove', e => {
         var crossX = document.querySelector(".cross-x");
         var crossY = document.querySelector(".cross-y");
-        this.onInnerMousemove(crossX, crossY, 0, 0, e);
+        var mouse = this.getMouseXY(e);
+        crossX.style.top = mouse.y + "px";  
+        crossY.style.left = mouse.x + "px"; 
       });
+
+      d3.select(".inner").on('contextmenu', e => {
+        e.preventDefault();          
+        var mouse = this.getMouseXY(e);
+        var menu = document.querySelector(".menu");
+        menu.style.display = "block";
+        menu.style.left = mouse.x + "px";
+        menu.style.top = mouse.y + "px";
+      })
+      d3.select(".inner").on('mousedown', e => {
+        e.preventDefault();          
+        if(e.button == 1){
+
+          console.log("鼠标滚轮!");
+        }
+      })
+      d3.select(".inner").on('mouseup', e => {
+        e.preventDefault();          
+        if(e.button == 1){
+
+          console.log("鼠标滚轮!");
+        }
+      })
+
+    
+
+      window.addEventListener('click', e => {
+        var menu = document.querySelector(".menu");
+        menu.style.display = "none";
+      })
+            
+        
        
     },
     // 获取鼠标在窗口的坐标
-    onInnerMousemove(ox, oy, x, y, e) {  
+    getMouseXY(e) {  
       var posX = 0, posY = 0;  
       if (e.pageX || e.pageY) { 
           posX = e.pageX;
@@ -143,8 +182,11 @@ export default {
           posX = event.clientX + document.documentElement.scrollLeft + document.body.scrollLeft;
           posY = event.clientY + document.documentElement.scrollTop + document.body.scrollTop;
       }
-      ox.style.top = posY + y + "px";  
-      oy.style.left = posX + x + "px"; 
+      return {
+        x: posX,
+        y: posY
+      }
+      
     }
   },
   mounted() {
@@ -186,5 +228,30 @@ path {
   width: 1px;
   height: 100%;
   background: #000;
+}
+.menu {
+  display: none;
+  position: absolute;
+  list-style: none;
+  padding-inline-start: 0px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  border: 1px solid #ddd;
+  box-shadow: 2px 2px 2px #888888;
+}
+
+.menu li {
+  float: left;
+  background: #fff;
+  text-align: center;
+  line-height: 30px;
+  width: 100px;
+  height: 30px;
+  list-style: none;
+  font-size: 14px;
+}
+.menu li:hover {
+  background: #ddd;
+  cursor: pointer;
 }
 </style>
