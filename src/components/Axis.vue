@@ -3,7 +3,6 @@
     <div class="cover"></div>
 
     <div class="axis">
-      <div class="inner"></div>
     </div>
    
   </div>
@@ -35,7 +34,7 @@ export default {
       
     },
     initSvg() {
-      const svg = d3.select(".inner").append("svg")
+      const svg = d3.select(".axis").append("svg")
           .attr("width", this.width)
           .attr("height", this.height)
 
@@ -72,20 +71,35 @@ export default {
               .attr("x2", this.width - this.margin.left - 20));
       svg.append("g")
           .attr("transform", `translate(${this.margin.top}, ${this.margin.left})`)
+          .attr("class", "grid")
+          .call(grid);
+      svg.append("rect")  
+          .attr("class", "coverTop")
+          .attr("width", this.width)
+          .attr("height", 80) 
+          .style("fill", "#fff");
+
+      svg.append("rect")  
+          .attr("class", "coverLeft")
+          .attr("width", 80)
+          .attr("height", this.height) 
+          .style("fill", "#fff");
+      
+      svg.append("g")
+          .attr("transform", `translate(${this.margin.top}, ${this.margin.left})`)
           .attr("class", "xAxis")
           .call(xAxis);
       svg.append("g")
           .attr("transform", `translate(${this.margin.top}, ${this.margin.left})`)
           .attr("class", "yAxis")
           .call(yAxis);
-      svg.append("g")
-          .attr("transform", `translate(${this.margin.top}, ${this.margin.left})`)
-          .attr("class", "grid")
-          .call(grid);
+      
     
       document.querySelector('.axis').addEventListener('scroll', function(e) {
         var s = document.querySelector('svg');
-        console.log(e.PageX, e.offsetX)
+        d3.select(".coverTop").attr("transform", `translate(0, ${-s.getBoundingClientRect().top})`)
+        d3.select(".coverLeft").attr("transform", `translate(${-s.getBoundingClientRect().left}, 0)`)
+
         d3.select(".xAxis").attr("transform", `translate(80, ${-s.getBoundingClientRect().top + 80})`)
         d3.select(".yAxis").attr("transform", `translate(${-s.getBoundingClientRect().left + 80}, 80)`)
       }, false)
@@ -103,24 +117,24 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .axis {
-  width: 1000px;
-  height: 900px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
   overflow: scroll;
 }
-.inner {
-  width: 1000px;
-  height: 900px;
-  overflow: hidden;
-}
-.grid {
-}
+
+
+
 .cover {
   position: absolute;
   width: 81px;
   height: 81px;
   background: #fff;
-
+  border-radius: 2px;
+  z-index: 999;
 }
+
+
 path {
   fill: #000;
   stroke: #76BF8A;
