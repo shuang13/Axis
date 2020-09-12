@@ -3,6 +3,14 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import UIMenu from '@/components/UIMenu'
+import Drag from '@/components/Drag'
+
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.component('UIMenu', UIMenu);
+Vue.component('Drag', Drag);
+Vue.use(ElementUI);
 
 Vue.config.productionTip = false
 
