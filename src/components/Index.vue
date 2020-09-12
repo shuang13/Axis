@@ -3,11 +3,11 @@
     <el-container>
       <el-header>Header</el-header>
       <el-container>
-        <el-aside id="left_aside" width="200px">
+        <el-aside id="left_aside" width="0">
           
         </el-aside>
         <el-main>Main</el-main>
-        <el-aside id="right_aside" width="200px"></el-aside>
+        <el-aside id="right_aside"  width="0"></el-aside>
 
       </el-container>
       <el-footer>Footer</el-footer>
@@ -20,6 +20,7 @@
         <div>内容</div>
       </template>
     </Drag>
+
     <ul class="indicator" v-if="isDraging" @mouseover="onIndicatorMouseenter"  @mouseout="onIndicatorMouseleave" @mouseup="onIndicatorMouseup">
       <li class="docIndicator" data-index="1"></li>
       <li class="docIndicator" data-index="2"></li>
@@ -44,8 +45,8 @@ export default {
       l: 0,
       t: 0,
       isDraging: false,
-      isDragGhostLeft: false,
-      isDragGhostRight: false,
+      isDragLeftGhost: false,
+      isDragRightGhost: false,
       isDragFloat: true,
       dragList:[{
           id: 0,
@@ -84,13 +85,26 @@ export default {
 
       if(e.target.nodeName.toLowerCase() == 'li') {
         if(e.target.dataset.index == 2) {
-          
+          this.isDragRightGhost = true;
+          document.querySelector('#right_aside').style.width = "200px";
+
+        } else if (e.target.dataset.index == 4) {
+          this.isDragLeftGhost = true;
+          document.querySelector('#left_aside').style.width = "200px";
         }
       }
     },
     onIndicatorMouseleave(e) {
-      if(e.target.dataset.index == 2) {
-          
+      if(e.target.nodeName.toLowerCase() == 'li') {
+        if(e.target.dataset.index == 2) {
+          this.isDragRightGhost = false;
+          document.querySelector('#right_aside').style.width = "0";
+
+        } else if (e.target.dataset.index == 4) {
+          this.isDragLeftGhost = false;
+          document.querySelector('#left_aside').style.width = "0";
+
+        }
       }
     },
     onIndicatorMouseup(e) {
@@ -104,12 +118,14 @@ export default {
       if(e.target.dataset.index == 2) {
         $right_aside_el.appendChild(this.$float_drag_el);
 
+
       } else if(e.target.dataset.index == 4) {
         $left_aside_el.appendChild(this.$float_drag_el);
+
       }
       
       this.$float_drag_el.className = "fixed_drag";
-      
+
       this.$float_drag_el.style.cursor = 'default';
       this.isDragFloat = false;
 
@@ -131,6 +147,8 @@ export default {
           this.t = this.$float_drag_el.offsetTop;
           this.$float_drag_el.style.cursor = 'move';
         } else {
+          this.isDragLeftGhost = false;
+          this.isDragRightGhost = false;
           
           this.$float_drag_el.parentNode.removeChild(this.$float_drag_el);
           $root_el.appendChild(this.$float_drag_el);
@@ -138,6 +156,9 @@ export default {
           this.$float_drag_el.className = "float_drag";
           this.$float_drag_el.style.top = e.clientY - (this.y - this.t) + 'px';
           this.$float_drag_el.style.cursor = 'move';
+          document.querySelector('#right_aside').style.width = "0";
+          document.querySelector('#left_aside').style.width = "0";
+
           this.isDragFloat = true;
 
         }
@@ -180,6 +201,11 @@ export default {
 }
 .el-aside {
   background: green;
+  width: 0px;
+  transition: width 0.1s;
+}
+.el-aside:ahover {
+  width: 200px;
 }
 .fixed_drag {
   position: static; 
