@@ -4,11 +4,7 @@
     <div class="cross-x"></div>
     <div class="cross-y"></div>
     <div class="axis"></div>
-    <ul class ="menu">
-        <li>
-          <span>层位解释</span>
-        </li>
-    </ul>
+    <UIMenu :menu_items="menuItems"></UIMenu>
   </div>
   
 </template>
@@ -30,7 +26,13 @@ export default {
         right: 0,
         bottom: 0,
         left: 80
-      }
+      },
+      menuItems: [{
+        value: "层位解释",
+      }, 
+      {
+        value: "层位解释",
+      }]
     }
   },
   methods: {
@@ -142,7 +144,7 @@ export default {
       d3.select(".inner").on('contextmenu', e => {
         e.preventDefault();          
         var mouse = this.getMouseXY(e);
-        var menu = document.querySelector(".menu");
+        var menu = document.querySelector(".UIMenu");
         menu.style.display = "block";
         menu.style.left = mouse.x + "px";
         menu.style.top = mouse.y + "px";
@@ -165,7 +167,7 @@ export default {
     
 
       window.addEventListener('click', e => {
-        var menu = document.querySelector(".menu");
+        var menu = document.querySelector(".UIMenu");
         menu.style.display = "none";
       })
             
@@ -229,29 +231,5 @@ path {
   height: 100%;
   background: #000;
 }
-.menu {
-  display: none;
-  position: absolute;
-  list-style: none;
-  padding-inline-start: 0px;
-  margin-block-start: 0;
-  margin-block-end: 0;
-  border: 1px solid #ddd;
-  box-shadow: 2px 2px 2px #888888;
-}
 
-.menu li {
-  float: left;
-  background: #fff;
-  text-align: center;
-  line-height: 30px;
-  width: 100px;
-  height: 30px;
-  list-style: none;
-  font-size: 14px;
-}
-.menu li:hover {
-  background: #ddd;
-  cursor: pointer;
-}
 </style>

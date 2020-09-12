@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Axis from '@/components/Axis'
 import Drag from '@/components/Drag'
 import Index from '@/components/Index'
+import Test from '@/components/Test'
 
 Vue.use(Router)
 export default new Router({
@@ -18,9 +19,9 @@ export default new Router({
       component: Axis
     },
     {
-      path: '/drag',
-      name: 'Drag',
-      component: Drag
+      path: '/test',
+      name: 'Test',
+      component: Test
     }
   ]
 })

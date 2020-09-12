@@ -1,8 +1,8 @@
 <template>
   <div class="UIMenu">
     <ul class ="menu">
-        <li>
-          <span>层位解释</span>
+        <li v-for="item in menu_items">
+          <span>{{item.value}}</span>
         </li>
     </ul>
   </div>
@@ -12,6 +12,7 @@
 export default {
 
   name: 'UIMenu',
+  props: ["menu_items"],
   data () {
     return {
       
@@ -32,16 +33,19 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-.menu {
-  display: none;
+.UIMenu {
   position: absolute;
+  display: none;
+  width: 100px;
+  border: 1px solid #ddd;
+  box-shadow: 2px 2px 2px #888888;
+
+}
+.menu {
   list-style: none;
   padding-inline-start: 0px;
   margin-block-start: 0;
   margin-block-end: 0;
-  border: 1px solid #ddd;
-  box-shadow: 2px 2px 2px #888888;
 }
 
 .menu li {
@@ -53,9 +57,12 @@ export default {
   height: 30px;
   list-style: none;
   font-size: 14px;
+  border-bottom: 1px solid #ddd;
+
 }
 .menu li:hover {
   background: #ddd;
   cursor: pointer;
 }
+
 </style>
