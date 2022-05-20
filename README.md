@@ -4,7 +4,7 @@
 
 [DEMO: Dock layout](https://shuang13.github.io/Axis/dist/index.html)
 
-[DEMO: Axis](https://shuang13.github.io/Axis/dist/index.html/#/Axis)
+[DEMO: Axis](https://shuang13.github.io/Axis/dist/index.html#/Axis)
 
 ## Build Setup
 
