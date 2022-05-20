@@ -2,8 +2,10 @@
 
 > Experiment with dock layout and coordinate drawing.
 
-[dock layout](https://shuang13.github.io/Axis/dist/index.html)
-[axis](https://shuang13.github.io/Axis/dist/index.html/Axis)
+[DEMO: Dock layout](https://shuang13.github.io/Axis/dist/index.html)
+
+[DEMO: Axis](https://shuang13.github.io/Axis/dist/index.html/Axis)
+
 ## Build Setup
 
 ``` bash
