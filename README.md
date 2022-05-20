@@ -1,4 +1,4 @@
-# plateform
+# Dock layout && Axis
 
 > Experiment with dock layout and coordinate drawing.
 
